@@ -1,4 +1,3 @@
-#define GLFW_DLL
 #define GLFW_INCLUDE_NONE
 
 #include <Windows.h>
@@ -129,13 +128,20 @@ int main()
 
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = nullptr;
+
+    const float uiScale = 1.30f;
+    io.FontGlobalScale = uiScale;
+
     ImGui::StyleColorsDark();
 
     ImGuiStyle& style = ImGui::GetStyle();
+    style.ScaleAllSizes(uiScale);
+
     style.WindowRounding = 8.0f;
     style.FrameRounding = 6.0f;
     style.GrabRounding = 6.0f;
     style.WindowBorderSize = 0.0f;
+
 
     if (!ImGui_ImplGlfw_InitForOpenGL(window, true))
     {
