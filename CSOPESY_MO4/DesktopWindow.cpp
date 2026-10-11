@@ -45,26 +45,25 @@ void DesktopWindow::render()
 
         ImGui::SetCursorPos(ImVec2(20, 20));
         ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 1.0f, 0.5f, 1.0f));
-        ImGui::Text("CSOPESY Megatrends");
-        ImGui::Text("Released: 12/01/94");
-        ImGui::Text("DLSU GWE Lab (C)1994 CSOPESY Megatrends Inc.");
+        ImGui::Text("CSOPESY UEFI Firmware Interface");
+        ImGui::Text("CSOPESY Desktop OS Emulator | Version 1.0");
+        ImGui::Text("Firmware Build: 2026.10 | Boot Mode: UEFI");
         ImGui::Dummy(ImVec2(0, 25));
-        ImGui::Text("Memory Test:");
-        ImGui::Text("Checking RAM : 64000K OK");
+        ImGui::Text("System Diagnostics:");
+        ImGui::Text("System Memory: 16 GB DDR4 ................ OK");
+        ImGui::Text("Processor Check: x64 Multi-Core .......... OK");
+        ImGui::Text("Graphics Adaptor: OpenGL 3.3 ............. OK");
         ImGui::Dummy(ImVec2(0, 25));
-        ImGui::Text("CPU Type: Pentium III");
-        ImGui::Text("BIOS Version: BCN SIT 1989-1994 Special CSOPESY");
-        ImGui::Text("Main Processor: Pentium III");
-        ImGui::Text("Numeric Processor: Built-in");
+        ImGui::Text("Storage Configuration:");
+        ImGui::Text("Primary Disk: Virtual SSD 512 GB .......... READY");
+        ImGui::Text("Boot Device: CSOPESY Desktop Shell ........ READY");
+        ImGui::Text("Secure Boot: Mock Validation ............. ENABLED");
         ImGui::Dummy(ImVec2(0, 25));
-        ImGui::Text("Primary Master: 420 MB WDCAC2420H");
-        ImGui::Text("Primary Slave: None");
-        ImGui::Text("Secondary Master: CD-ROM LTN-305A");
-        ImGui::Text("Secondary Slave: None");
+        ImGui::Text("Initializing desktop compositor .......... DONE");
         ImGui::Dummy(ImVec2(0, 25));
         ImGui::TextWrapped(
-            "Fun Fact: The CPU specs are a tribute to the early "
-            "gaming era. This screen simulates a classic BIOS boot.");
+            "All startup checks completed successfully. "
+            "Launching the CSOPESY desktop environment.");
         ImGui::PopStyleColor();
         ImGui::End();
         return;
@@ -84,25 +83,52 @@ void DesktopWindow::render()
             ImGuiWindowFlags_NoSavedSettings |
             ImGuiWindowFlags_NoBackground);
 
-        const float centerX = size.x * 0.5f;
-        const float centerY = size.y * 0.40f;
+        const float centerY = size.y * 0.32f;
+        const float lineGap = 10.0f;
+        const char* subtitle = "CSOPESY Operating System Emulator v1.0";
+        const char* author = "Created By: CSOPESY Group 8";
+        const char* status = "Initializing system...";
 
-        ImGui::SetCursorPos(ImVec2(centerX - 190, centerY));
         ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.15f, 0.75f, 0.92f, 1.0f));
         ImGui::SetWindowFontScale(2.3f);
-        ImGui::Text("C S O P E S Y");
+        const ImVec2 titleSize = ImGui::CalcTextSize("C S O P E S Y");
+        ImGui::SetCursorPos(ImVec2((size.x - titleSize.x) * 0.5f, centerY));
+        ImGui::TextUnformatted("C S O P E S Y");
         ImGui::SetWindowFontScale(1.0f);
-        ImGui::SetCursorPos(ImVec2(centerX - 155, centerY + 55));
-        ImGui::Text("CSOPESY Operating System Emulator v1.0");
-        ImGui::SetCursorPos(ImVec2(centerX - 125, centerY + 80));
-        ImGui::Text("Created By: CSOPESY Group 8");
-        ImGui::SetCursorPos(ImVec2(centerX - 65, centerY + 120));
-        ImGui::Text("Initializing system...");
+
+        const float normalLineHeight = ImGui::GetTextLineHeight();
+        const float subtitleY = centerY + titleSize.y + lineGap;
+        const float authorY = subtitleY + normalLineHeight + lineGap;
+        const float statusY = authorY + normalLineHeight + lineGap * 2.0f;
+
+        const ImVec2 subtitleSize = ImGui::CalcTextSize(subtitle);
+        const ImVec2 authorSize = ImGui::CalcTextSize(author);
+        const ImVec2 statusSize = ImGui::CalcTextSize(status);
+        ImGui::SetCursorPos(ImVec2((size.x - subtitleSize.x) * 0.5f, subtitleY));
+        ImGui::TextUnformatted(subtitle);
+        ImGui::SetCursorPos(ImVec2((size.x - authorSize.x) * 0.5f, authorY));
+        ImGui::TextUnformatted(author);
+        ImGui::SetCursorPos(ImVec2((size.x - statusSize.x) * 0.5f, statusY));
+        ImGui::TextUnformatted(status);
         ImGui::PopStyleColor();
 
-        ImGui::SetCursorPos(ImVec2(centerX - 120, centerY + 160));
+        const ImGuiStyle& loadingStyle = ImGui::GetStyle();
+        const float loadingContentWidth = ImGui::GetWindowWidth()
+            - loadingStyle.WindowPadding.x * 2.0f;
+        const float progressWidth = (loadingContentWidth - 24.0f > 280.0f)
+            ? 280.0f
+            : loadingContentWidth - 24.0f;
+        const float progressHeight = ImGui::GetFrameHeight();
+        const float requestedProgressY = statusY + normalLineHeight + 28.0f;
+        const float lastProgressY = size.y - progressHeight
+            - loadingStyle.WindowPadding.y;
+        const float progressY = (requestedProgressY < lastProgressY)
+            ? requestedProgressY
+            : lastProgressY;
+        ImGui::SetCursorPosX((ImGui::GetWindowWidth() - progressWidth) * 0.5f);
+        ImGui::SetCursorPosY(progressY);
         const float progress = std::min(elapsed / 3.0f, 1.0f);
-        ImGui::ProgressBar(progress, ImVec2(240, 12));
+        ImGui::ProgressBar(progress, ImVec2(progressWidth, progressHeight));
         ImGui::End();
         return;
     }
@@ -122,27 +148,36 @@ void DesktopWindow::render()
         draw->AddText(
             ImVec2(origin.x + 20, origin.y + 20),
             IM_COL32(255, 255, 255, 255),
-            "Wallpaper could not be loaded. Check assets/wallpaper.jpg.");
+            "Wallpaper could not be loaded. Check assets/wallpaper.png.");
     }
 
-    draw->AddText(
-        ImVec2(origin.x + 20, origin.y + size.y - 75),
-        IM_COL32(0, 255, 120, 255),
-        "CSOPESY OS v1.0 - Desktop Shell");
+    const float uiScale = ImGui::GetFontSize() / 13.0f;
+    const float iconButtonWidth = 120.0f * uiScale;
+    const float iconButtonHeight = 42.0f * uiScale;
+    const ImGuiStyle& style = ImGui::GetStyle();
 
     ImGui::SetNextWindowPos(ImVec2(origin.x + 18, origin.y + 25), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(95, 85), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(
+        ImVec2(iconButtonWidth + style.WindowPadding.x * 2.0f,
+            iconButtonHeight * 2.5f + style.WindowPadding.y * 2.0f),
+        ImGuiCond_Always);
     ImGui::Begin("Desktop Icons", nullptr,
         ImGuiWindowFlags_NoDecoration |
         ImGuiWindowFlags_NoMove |
         ImGuiWindowFlags_NoBackground |
         ImGuiWindowFlags_NoSavedSettings);
 
-    if (ImGui::Button("FILES", ImVec2(75, 35)))
+    ImGui::SetWindowFontScale(1.05f);
+    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.18f, 0.18f, 0.18f, 0.82f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.28f, 0.28f, 0.28f, 0.88f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.36f, 0.36f, 0.36f, 0.92f));
+    if (ImGui::Button("Files", ImVec2(iconButtonWidth - 8.0f, iconButtonHeight)))
         state.showFiles = true;
-    ImGui::Dummy(ImVec2(0, 5));
-    if (ImGui::Button("ABOUT", ImVec2(75, 35)))
+    ImGui::Dummy(ImVec2(0, 6.0f * uiScale));
+    if (ImGui::Button("About", ImVec2(iconButtonWidth - 8.0f, iconButtonHeight)))
         state.showAbout = true;
+    ImGui::PopStyleColor(3);
+    ImGui::SetWindowFontScale(1.0f);
     ImGui::End();
 
     std::time_t currentTime = std::time(nullptr);
@@ -152,48 +187,72 @@ void DesktopWindow::render()
     std::strftime(clockText, sizeof(clockText),
         "%A, %b %d, %Y | %I:%M:%S %p", &localTime);
 
-    ImGui::SetNextWindowPos(
-        ImVec2(origin.x + size.x - 290, origin.y + 8), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(280, 32), ImGuiCond_Always);
-    ImGui::Begin("Clock", nullptr,
-        ImGuiWindowFlags_NoDecoration |
-        ImGuiWindowFlags_NoMove |
-        ImGuiWindowFlags_NoSavedSettings);
-    ImGui::Text("%s", clockText);
-    ImGui::End();
+    const float buttonHeight = 40.0f * uiScale;
+    const float taskbarHeight = buttonHeight + style.WindowPadding.y * 2.0f + 8.0f * uiScale;
+    const float taskbarTop = origin.y + size.y - taskbarHeight;
+    const ImU32 taskbarColor = IM_COL32(20, 20, 32, 255);
+    draw->AddRectFilled(
+        ImVec2(origin.x, taskbarTop),
+        ImVec2(origin.x + size.x, origin.y + size.y),
+        taskbarColor);
 
     ImGui::SetNextWindowPos(
-        ImVec2(origin.x, origin.y + size.y - 62), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(size.x, 62), ImGuiCond_Always);
-    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.08f, 0.08f, 0.13f, 0.98f));
+        ImVec2(origin.x, taskbarTop), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(size.x, taskbarHeight), ImGuiCond_Always);
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.08f, 0.08f, 0.13f, 1.0f));
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
     ImGui::Begin("Taskbar", nullptr,
         ImGuiWindowFlags_NoDecoration |
         ImGuiWindowFlags_NoMove |
         ImGuiWindowFlags_NoSavedSettings);
 
-    if (ImGui::Button("FILES", ImVec2(70, 40)))
-        state.showFiles = !state.showFiles;
-    ImGui::SameLine();
-    if (ImGui::Button("SETTINGS", ImVec2(85, 40)))
-        state.showSettings = !state.showSettings;
-    ImGui::SameLine();
-    if (ImGui::Button("TASK MANAGER", ImVec2(125, 40)))
-        state.showTaskManager = !state.showTaskManager;
-    ImGui::SameLine();
-    if (ImGui::Button("ABOUT", ImVec2(70, 40)))
-        state.showAbout = !state.showAbout;
-    ImGui::SameLine();
-    ImGui::SetCursorPosX(std::max(ImGui::GetCursorPosX(), size.x - 100.0f));
+    ImGui::SetWindowFontScale(1.05f);
+    ImGui::SetCursorPosY((taskbarHeight - buttonHeight) * 0.5f);
+    const float clockWidth = ImGui::CalcTextSize(clockText).x + 32.0f * uiScale;
+    const float pwrButtonWidth = ImGui::CalcTextSize("PWR").x + 24.0f * uiScale;
+    const float filesButtonWidth = ImGui::CalcTextSize("Files").x + 30.0f * uiScale;
+    const float settingsButtonWidth = ImGui::CalcTextSize("Settings").x + 30.0f * uiScale;
+    const float managerButtonWidth = ImGui::CalcTextSize("Task Manager").x + 32.0f * uiScale;
+    const float aboutButtonWidth = ImGui::CalcTextSize("About").x + 30.0f * uiScale;
+
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.65f, 0.12f, 0.15f, 1.0f));
-    if (ImGui::Button("PWR", ImVec2(65, 40)))
+    if (ImGui::Button("PWR", ImVec2(pwrButtonWidth, buttonHeight)))
         state.running = false;
     ImGui::PopStyleColor();
+
+    ImGui::SameLine();
+    if (ImGui::Button("Files", ImVec2(filesButtonWidth, buttonHeight)))
+        state.showFiles = !state.showFiles;
+    ImGui::SameLine();
+    if (ImGui::Button("Settings", ImVec2(settingsButtonWidth, buttonHeight)))
+        state.showSettings = !state.showSettings;
+    ImGui::SameLine();
+    if (ImGui::Button("Task Manager", ImVec2(managerButtonWidth, buttonHeight)))
+        state.showTaskManager = !state.showTaskManager;
+    ImGui::SameLine();
+    if (ImGui::Button("About", ImVec2(aboutButtonWidth, buttonHeight)))
+        state.showAbout = !state.showAbout;
+    ImGui::SameLine();
+
+    const float taskbarContentWidth = ImGui::GetWindowWidth()
+        - style.WindowPadding.x * 2.0f;
+    const float clockX = taskbarContentWidth - clockWidth;
+    ImGui::SetCursorPosX(clockX > ImGui::GetCursorPosX()
+        ? clockX
+        : ImGui::GetCursorPosX());
+    ImGui::SetCursorPosY((taskbarHeight - ImGui::GetTextLineHeight()) * 0.5f);
+    ImGui::TextUnformatted(clockText);
+    ImGui::SetWindowFontScale(1.0f);
     ImGui::End();
+    ImGui::PopStyleVar();
     ImGui::PopStyleColor();
 
     if (state.showFiles)
     {
         ImGui::SetNextWindowSize(ImVec2(440, 320), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowPos(
+            ImVec2(origin.x + size.x * 0.5f, origin.y + size.y * 0.5f),
+            ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
         if (ImGui::Begin("File Explorer", &state.showFiles))
         {
             ImGui::Text("This PC");
@@ -212,6 +271,9 @@ void DesktopWindow::render()
     if (state.showSettings)
     {
         ImGui::SetNextWindowSize(ImVec2(430, 310), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowPos(
+            ImVec2(origin.x + size.x * 0.5f, origin.y + size.y * 0.5f),
+            ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
         if (ImGui::Begin("Settings", &state.showSettings))
         {
             ImGui::Text("System Settings");
@@ -222,7 +284,7 @@ void DesktopWindow::render()
             ImGui::Spacing();
             ImGui::Text("Personalization");
             ImGui::TextWrapped(
-                "Wallpaper: Custom image loaded from assets/wallpaper.jpg.");
+                "Wallpaper: Custom image loaded from assets/wallpaper.png.");
             ImGui::Spacing();
             ImGui::Text("System");
             ImGui::Text("Operating System: CSOPESY OS v1.0");
@@ -235,6 +297,9 @@ void DesktopWindow::render()
     if (state.showAbout)
     {
         ImGui::SetNextWindowSize(ImVec2(400, 240), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowPos(
+            ImVec2(origin.x + size.x * 0.5f, origin.y + size.y * 0.5f),
+            ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
         if (ImGui::Begin("About CSOPESY", &state.showAbout))
         {
             ImGui::Text("CSOPESY Desktop OS Emulator");

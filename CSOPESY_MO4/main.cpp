@@ -32,7 +32,7 @@ GLuint LoadWallpaperTexture()
     size_t lastSlash = imagePath.find_last_of(L"\\/");
     if (lastSlash != wstring::npos)
         imagePath.resize(lastSlash + 1);
-    imagePath += L"assets\\wallpaper.jpg";
+    imagePath += L"external\\assets\\wallpaper.png";
 
     HRESULT comResult = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     bool uninitializeCOM = SUCCEEDED(comResult);
@@ -129,17 +129,31 @@ int main()
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = nullptr;
 
-    const float uiScale = 1.30f;
-    io.FontGlobalScale = uiScale;
+    float contentScaleX = 1.0f;
+    float contentScaleY = 1.0f;
+    glfwGetWindowContentScale(window, &contentScaleX, &contentScaleY);
+    const float monitorScale = (contentScaleX > contentScaleY)
+        ? contentScaleX
+        : contentScaleY;
+    const float uiScale = (1.15f > monitorScale * 1.25f)
+        ? 1.15f
+        : monitorScale * 1.25f;
 
     ImGui::StyleColorsDark();
 
+    io.Fonts->Clear();
+    ImFontConfig fontConfig;
+    fontConfig.SizePixels = 13.0f * uiScale;
+    io.Fonts->AddFontDefault(&fontConfig);
+
     ImGuiStyle& style = ImGui::GetStyle();
     style.ScaleAllSizes(uiScale);
-
-    style.WindowRounding = 8.0f;
-    style.FrameRounding = 6.0f;
-    style.GrabRounding = 6.0f;
+    style.WindowPadding = ImVec2(12.0f * uiScale, 10.0f * uiScale);
+    style.ItemSpacing = ImVec2(10.0f * uiScale, 8.0f * uiScale);
+    style.FramePadding = ImVec2(10.0f * uiScale, 6.0f * uiScale);
+    style.WindowRounding = 8.0f * uiScale;
+    style.FrameRounding = 6.0f * uiScale;
+    style.GrabRounding = 6.0f * uiScale;
     style.WindowBorderSize = 0.0f;
 
 

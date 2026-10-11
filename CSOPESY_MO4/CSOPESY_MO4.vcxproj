@@ -108,7 +108,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROJECT_DIR=L"$(ProjectDir)"%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)external\glfw\include;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -122,6 +122,10 @@
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "$(OutDir)external\assets" mkdir "$(OutDir)external\assets"
+copy /Y "$(ProjectDir)external\assets\wallpaper.png" "$(OutDir)external\assets\wallpaper.png"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -129,7 +133,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROJECT_DIR=L"$(ProjectDir)"%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)external\glfw\include;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -143,6 +147,10 @@
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "$(OutDir)external\assets" mkdir "$(OutDir)external\assets"
+copy /Y "$(ProjectDir)external\assets\wallpaper.png" "$(OutDir)external\assets\wallpaper.png"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DesktopWindow.cpp" />

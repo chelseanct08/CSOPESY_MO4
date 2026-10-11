@@ -5,7 +5,13 @@ void TaskManagerWindow::render()
     if (!state.showTaskManager || state.screen != Screen::Desktop)
         return;
 
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    const ImVec2 center(
+        viewport->Pos.x + viewport->Size.x * 0.5f,
+        viewport->Pos.y + viewport->Size.y * 0.5f);
+
     ImGui::SetNextWindowSize(ImVec2(620, 390), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
     if (ImGui::Begin("Task Manager", &state.showTaskManager))
     {
         ImGui::Text("Processes");
