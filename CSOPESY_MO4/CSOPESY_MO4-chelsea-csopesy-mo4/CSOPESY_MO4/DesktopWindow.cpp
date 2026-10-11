@@ -85,24 +85,44 @@ void DesktopWindow::render()
             ImGuiWindowFlags_NoBackground);
 
         const float centerX = size.x * 0.5f;
-        const float centerY = size.y * 0.40f;
+        const float startY = size.y * 0.28f;
 
-        ImGui::SetCursorPos(ImVec2(centerX - 190, centerY));
+        const char* asciiLines[5] = {
+            "  ____ ____   ___  ____  _____ ____ __   __",
+            " / ___/ ___| / _ \\|  _ \\| ____/ ___|\\ \\ / /",
+            "| |   \\___ \\| | | | |_) |  _| \\___ \\ \\ V / ",
+            "| |___ ___) | |_| |  __/| |___ ___) | | |  ",
+            " \\____|____/ \\___/|_|   |_____|____/  |_|  "
+        };
+
         ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.15f, 0.75f, 0.92f, 1.0f));
-        ImGui::SetWindowFontScale(2.3f);
-        ImGui::Text("C S O P E S Y");
-        ImGui::SetWindowFontScale(1.0f);
-        ImGui::SetCursorPos(ImVec2(centerX - 155, centerY + 55));
-        ImGui::Text("CSOPESY Operating System Emulator v1.0");
-        ImGui::SetCursorPos(ImVec2(centerX - 125, centerY + 80));
-        ImGui::Text("Created By: CSOPESY Group 8");
-        ImGui::SetCursorPos(ImVec2(centerX - 65, centerY + 120));
-        ImGui::Text("Initializing system...");
+
+        for (int i = 0; i < 5; ++i)
+        {
+            float lineWidth = ImGui::CalcTextSize(asciiLines[i]).x;
+            ImGui::SetCursorPos(ImVec2(centerX - (lineWidth * 0.5f), startY + (i * 18.0f)));
+            ImGui::TextUnformatted(asciiLines[i]);
+        }
+
+        const float detailsY = startY + (5 * 18.0f) + 24.0f;
+
+        const char* sub1 = "CSOPESY Operating System Emulator v1.0";
+        ImGui::SetCursorPos(ImVec2(centerX - (ImGui::CalcTextSize(sub1).x * 0.5f), detailsY));
+        ImGui::TextUnformatted(sub1);
+
+        const char* sub2 = "Created By: CSOPESY Group 8";
+        ImGui::SetCursorPos(ImVec2(centerX - (ImGui::CalcTextSize(sub2).x * 0.5f), detailsY + 24.0f));
+        ImGui::TextUnformatted(sub2);
+
+        const char* sub3 = "Initializing system...";
+        ImGui::SetCursorPos(ImVec2(centerX - (ImGui::CalcTextSize(sub3).x * 0.5f), detailsY + 58.0f));
+        ImGui::TextUnformatted(sub3);
         ImGui::PopStyleColor();
 
-        ImGui::SetCursorPos(ImVec2(centerX - 120, centerY + 160));
+        const float barWidth = 260.0f;
+        ImGui::SetCursorPos(ImVec2(centerX - (barWidth * 0.5f), detailsY + 92.0f));
         const float progress = std::min(elapsed / 3.0f, 1.0f);
-        ImGui::ProgressBar(progress, ImVec2(240, 12));
+        ImGui::ProgressBar(progress, ImVec2(barWidth, 12));
         ImGui::End();
         return;
     }
@@ -130,21 +150,6 @@ void DesktopWindow::render()
         IM_COL32(0, 255, 120, 255),
         "CSOPESY OS v1.0 - Desktop Shell");
 
-    ImGui::SetNextWindowPos(ImVec2(origin.x + 18, origin.y + 25), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(95, 85), ImGuiCond_Always);
-    ImGui::Begin("Desktop Icons", nullptr,
-        ImGuiWindowFlags_NoDecoration |
-        ImGuiWindowFlags_NoMove |
-        ImGuiWindowFlags_NoBackground |
-        ImGuiWindowFlags_NoSavedSettings);
-
-    if (ImGui::Button("FILES", ImVec2(75, 35)))
-        state.showFiles = true;
-    ImGui::Dummy(ImVec2(0, 5));
-    if (ImGui::Button("ABOUT", ImVec2(75, 35)))
-        state.showAbout = true;
-    ImGui::End();
-
     std::time_t currentTime = std::time(nullptr);
     std::tm localTime{};
     localtime_s(&localTime, &currentTime);
@@ -171,23 +176,52 @@ void DesktopWindow::render()
         ImGuiWindowFlags_NoMove |
         ImGuiWindowFlags_NoSavedSettings);
 
-    if (ImGui::Button("FILES", ImVec2(70, 40)))
-        state.showFiles = !state.showFiles;
+    if (state.iconFolderTexture != 0)
+    {
+        if (ImGui::ImageButton("files_icon", (ImTextureID)(intptr_t)state.iconFolderTexture, ImVec2(40, 32)))
+            state.showFiles = !state.showFiles;
+    }
+    else
+    {
+        if (ImGui::Button("FILES", ImVec2(70, 40)))
+            state.showFiles = !state.showFiles;
+    }
     ImGui::SameLine();
+
     if (ImGui::Button("SETTINGS", ImVec2(85, 40)))
         state.showSettings = !state.showSettings;
     ImGui::SameLine();
-    if (ImGui::Button("TASK MANAGER", ImVec2(125, 40)))
-        state.showTaskManager = !state.showTaskManager;
+
+    if (state.iconTaskManagerTexture != 0)
+    {
+        if (ImGui::ImageButton("taskmgr_icon", (ImTextureID)(intptr_t)state.iconTaskManagerTexture, ImVec2(40, 32)))
+            state.showTaskManager = !state.showTaskManager;
+    }
+    else
+    {
+        if (ImGui::Button("TASK MANAGER", ImVec2(125, 40)))
+            state.showTaskManager = !state.showTaskManager;
+    }
     ImGui::SameLine();
+
     if (ImGui::Button("ABOUT", ImVec2(70, 40)))
         state.showAbout = !state.showAbout;
     ImGui::SameLine();
+
     ImGui::SetCursorPosX(std::max(ImGui::GetCursorPosX(), size.x - 100.0f));
-    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.65f, 0.12f, 0.15f, 1.0f));
-    if (ImGui::Button("PWR", ImVec2(65, 40)))
-        state.running = false;
-    ImGui::PopStyleColor();
+    if (state.iconPowerTexture != 0)
+    {
+        if (ImGui::ImageButton("pwr_icon", (ImTextureID)(intptr_t)state.iconPowerTexture, ImVec2(40, 32)))
+            state.running = false;
+    }
+    else
+    {
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.65f, 0.12f, 0.15f, 1.0f));
+        if (ImGui::Button("PWR", ImVec2(65, 40)))
+            state.running = false;
+        ImGui::PopStyleColor();
+    }
+
     ImGui::End();
     ImGui::PopStyleColor();
 

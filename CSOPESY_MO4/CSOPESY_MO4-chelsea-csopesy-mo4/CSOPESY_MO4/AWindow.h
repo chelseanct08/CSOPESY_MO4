@@ -33,7 +33,12 @@ struct AppState
     bool showAbout = false;
     bool running = true;
 
+    // --- Texture Handles ---
     unsigned int wallpaperTexture = 0;
+    unsigned int iconFolderTexture = 0;       // assets/icon_folder.jpg
+    unsigned int iconTaskManagerTexture = 0;  // assets/icon_taskmgr.jpg
+    unsigned int iconPowerTexture = 0;        // assets/icon_power.jpg
+
     ImVec2 viewportOrigin = ImVec2(0.0f, 0.0f);
     ImVec2 viewportSize = ImVec2(1280.0f, 800.0f);
 

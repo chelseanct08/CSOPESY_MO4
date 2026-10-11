@@ -1,7 +1,7 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\asus\\downloads\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\main.cpp",
+        "Source": "c:\\users\\asus\\downloads\\csopesy_mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\main.cpp",
         "ProvidedModule": "",
         "Includes": [
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\windows.h",
@@ -324,7 +324,7 @@
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_string_view.hpp",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\iosfwd",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\cctype",
-            "c:\\users\\asus\\downloads\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\awindow.h",
+            "c:\\users\\asus\\downloads\\csopesy_mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\awindow.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\chrono",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_chrono.hpp",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\ctime",
@@ -383,9 +383,9 @@
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\optional",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\xsmf_control.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\sstream",
-            "c:\\users\\asus\\downloads\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\uimanager.h",
-            "c:\\users\\asus\\downloads\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\desktopwindow.h",
-            "c:\\users\\asus\\downloads\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\taskmanagerwindow.h"
+            "c:\\users\\asus\\downloads\\csopesy_mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\uimanager.h",
+            "c:\\users\\asus\\downloads\\csopesy_mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\desktopwindow.h",
+            "c:\\users\\asus\\downloads\\csopesy_mo4\\csopesy_mo4-chelsea-csopesy-mo4\\csopesy_mo4\\taskmanagerwindow.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

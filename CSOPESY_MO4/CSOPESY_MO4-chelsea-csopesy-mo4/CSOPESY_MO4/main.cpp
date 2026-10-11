@@ -24,16 +24,16 @@
 
 using namespace std;
 
-GLuint LoadWallpaperTexture()
+GLuint LoadTexture(const std::wstring& relativePath)
 {
     wchar_t exePath[MAX_PATH]{};
     GetModuleFileNameW(nullptr, exePath, MAX_PATH);
 
-    wstring imagePath = exePath;
+    std::wstring imagePath = exePath;
     size_t lastSlash = imagePath.find_last_of(L"\\/");
-    if (lastSlash != wstring::npos)
+    if (lastSlash != std::wstring::npos)
         imagePath.resize(lastSlash + 1);
-    imagePath += L"assets\\wallpaper.jpg";
+    imagePath += relativePath;
 
     HRESULT comResult = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     bool uninitializeCOM = SUCCEEDED(comResult);
@@ -74,7 +74,7 @@ GLuint LoadWallpaperTexture()
 
     if (SUCCEEDED(hr) && width > 0 && height > 0)
     {
-        vector<BYTE> pixels(static_cast<size_t>(width) * height * 4);
+        std::vector<BYTE> pixels(static_cast<size_t>(width) * height * 4);
         hr = converter->CopyPixels(
             nullptr, width * 4, static_cast<UINT>(pixels.size()), pixels.data());
 
@@ -155,7 +155,11 @@ int main()
     }
 
     AppState appState;
-    appState.wallpaperTexture = LoadWallpaperTexture();
+    appState.wallpaperTexture = LoadTexture(L"assets\\wallpaper.jpg");
+    appState.iconFolderTexture = LoadTexture(L"assets\\folder.jpg");
+    appState.iconTaskManagerTexture = LoadTexture(L"assets\\taskmgr.jpg");
+    appState.iconPowerTexture = LoadTexture(L"assets\\power.jpg");
+
 
     DesktopWindow desktopWindow(appState);
     TaskManagerWindow taskManagerWindow(appState);
