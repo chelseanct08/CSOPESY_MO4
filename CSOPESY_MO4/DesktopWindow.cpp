@@ -95,7 +95,7 @@ void DesktopWindow::render()
         ImGui::SetCursorPos(ImVec2(centerX - 155, centerY + 55));
         ImGui::Text("CSOPESY Operating System Emulator v1.0");
         ImGui::SetCursorPos(ImVec2(centerX - 125, centerY + 80));
-        ImGui::Text("Created By: CSOPESY Development Team");
+        ImGui::Text("Created By: CSOPESY Group 8");
         ImGui::SetCursorPos(ImVec2(centerX - 65, centerY + 120));
         ImGui::Text("Initializing system...");
         ImGui::PopStyleColor();
