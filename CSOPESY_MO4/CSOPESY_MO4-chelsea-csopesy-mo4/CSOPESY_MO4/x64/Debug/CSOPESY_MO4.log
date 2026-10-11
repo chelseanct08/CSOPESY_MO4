@@ -1,0 +1,13 @@
+﻿  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  DesktopWindow.cpp
+  main.cpp
+  TaskManagerWindow.cpp
+  UIManager.cpp
+  Generating Code...
+  CSOPESY_MO4.vcxproj -> C:\Users\Asus\Downloads\CSOPESY_MO4-chelsea-csopesy-mo4\CSOPESY_MO4-chelsea-csopesy-mo4\x64\Debug\CSOPESY_MO4.exe
