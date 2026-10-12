@@ -4,7 +4,7 @@
 
 - Hernaez, Raeka Estrelle R.
 - Liwanag, Ram Miguel C.
-- Serrano, Paul
+- Serrano, Paul Rhazzel
 - Tamayo, Chelsea Nichole C.
 
 ## How to Compile and Run
