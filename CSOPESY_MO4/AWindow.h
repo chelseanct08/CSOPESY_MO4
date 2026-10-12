@@ -39,12 +39,12 @@ struct AppState
 
     std::vector<Process> processes =
     {
-        { "System",          "Running", 1.2f, 120.0f },
-        { "Desktop Shell",   "Running", 3.8f,  85.5f },
-        { "File Explorer",   "Running", 0.7f,  42.0f },
-        { "Settings",        "Running", 0.4f,  35.2f },
-        { "Task Manager",    "Running", 0.9f,  28.4f },
-        { "OpenGL Renderer",  "Running", 2.1f,  64.8f }
+        { "DOSBox-X", "Active", 0.7f, 12.4f },
+        { "Visual Studio 2026", "Active", 1.3f, 18.6f },
+        { "Google Chrome", "Idle",   0.2f,  8.1f },
+        { "Minecraft", "Active", 0.9f, 15.2f },
+        { "File Explorer", "Idle",   0.3f,  9.7f },
+        { "Spotify", "Active", 1.1f, 21.8f }
     };
 };
 

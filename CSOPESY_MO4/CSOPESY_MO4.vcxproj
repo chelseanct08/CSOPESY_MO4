@@ -108,20 +108,24 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROJECT_DIR=L"$(ProjectDir)"%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Libraries\imgui;C:\Libraries\imgui\backends;C:\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\glfw\include;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Libraries\glfw\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\glfw\lib-vc2026</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "$(OutDir)external\assets" mkdir "$(OutDir)external\assets"
+copy /Y "$(ProjectDir)external\assets\wallpaper.png" "$(OutDir)external\assets\wallpaper.png"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -129,29 +133,33 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROJECT_DIR=L"$(ProjectDir)"%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Libraries\imgui;C:\Libraries\imgui\backends;C:\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\glfw\include;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Libraries\glfw\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\glfw\lib-vc2026</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "$(OutDir)external\assets" mkdir "$(OutDir)external\assets"
+copy /Y "$(ProjectDir)external\assets\wallpaper.png" "$(OutDir)external\assets\wallpaper.png"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Libraries\imgui\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Libraries\imgui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Libraries\imgui\imgui.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Libraries\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Libraries\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Libraries\imgui\imgui_widgets.cpp" />
     <ClCompile Include="DesktopWindow.cpp" />
+    <ClCompile Include="external\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="external\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="external\imgui\imgui.cpp" />
+    <ClCompile Include="external\imgui\imgui_draw.cpp" />
+    <ClCompile Include="external\imgui\imgui_tables.cpp" />
+    <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TaskManagerWindow.cpp" />
     <ClCompile Include="UIManager.cpp" />
