@@ -9,7 +9,7 @@
 
 ## How to Compile and Run
 
-1. Open `*Visual Studio*` and load the 'CSOPESY_MO4.slnx' solution file.
+1. Open *`Visual Studio`* and load the 'CSOPESY_MO4.slnx' solution file.
 
 2. Build the project using:
 
@@ -21,6 +21,6 @@
 
 ## Entry Class File
 
-The main() function is located in:
+The `main()` function is located in:
 
-**main.cpp**
+**`main.cpp`**
